@@ -2,8 +2,8 @@ const CategoryController = require("../controllers/Categories.controller");
 
 const express = require("express");
 
-const Router = express.Router();
+const router = express.Router();
+    
+router.post("/add/category", CategoryController.CreateCategory)
 
-Router.post("add/category", CategoryController.CreateCategory)
-
-module.exports = Router
+module.exports = router
