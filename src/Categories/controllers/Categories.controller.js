@@ -20,6 +20,9 @@ async function CreateCategory(req, res) {
             data: Save
         })
 
+        
+
+
 
     } catch (error) {
 
@@ -29,6 +32,55 @@ async function CreateCategory(req, res) {
     }
 }
 
+async function FetchCategory(req, res) {
+
+    try {
+
+        const get = await CategoriesModel.find();
+
+        return res.json({
+            message: "Categories Fetched",
+            data: get
+        })
+
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            message: error.message
+        });
+
+    }
+
+}
+
+
+async function UpdateCategory(req, res) {
+
+    const Update = await CategoriesModel.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+    );
+
+    res.json({
+        message: "Updated Successfully!"
+    })
+}
+
+async function DeleteCategory(req, res) {
+
+    const Delete = await CategoriesModel.findByIdAndDelete(req.params.id)
+
+    res.json({
+        message: "Deleted Successfully!"
+    })
+
+}
+
 module.exports = {
-    CreateCategory
+    CreateCategory,
+    FetchCategory,
+    UpdateCategory,
+    DeleteCategory
 }
