@@ -5,8 +5,7 @@ async function CreateCategory(req, res) {
     try {
         console.log(req.body);
 
-        const { categoryName, categoryImage, description, isActive, icon } = req.body;
-
+        const { categoryName, categoryImage, stock, description, isActive, icon } = req.body;
 
         const Save = await CategorySchema.create({
 
@@ -14,7 +13,8 @@ async function CreateCategory(req, res) {
             categoryImage,
             description,
             isActive,
-            icon
+            icon,
+            stock
         });
 
         return res.json({

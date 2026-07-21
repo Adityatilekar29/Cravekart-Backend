@@ -8,7 +8,7 @@ const FoodPost = async (req, res) => {
 
         const save = await FoodModel.create({
             foodName,
-            price,
+            price,  
             category,
             stock,
             rating,

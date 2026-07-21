@@ -3,8 +3,11 @@ const mongoose = require("mongoose");
 const MenuItemSchema = new mongoose.Schema({
 
     categoryId: {
-        type:Number,
-        required: true
+        type: Number,
+        // required: true
+    },
+    category: {
+        type: String,
     },
     foodName: {
         type: String,
@@ -47,7 +50,7 @@ const MenuItemSchema = new mongoose.Schema({
     },
     cost: {
         type: String,
-        required: true
+        // required: true
     },
 
     sku: {

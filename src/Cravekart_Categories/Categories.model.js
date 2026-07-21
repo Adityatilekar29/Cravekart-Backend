@@ -10,8 +10,12 @@ const CategorySchema = new mongoose.Schema({
     categoryImage: {
         type: String,
     },
-
-    cescription: {
+    stock: {
+        type: String,
+        enum: ["Available", "Out Of Stock"],
+        default: "Available"
+    },
+    description: {
         type: String,
     },
 
