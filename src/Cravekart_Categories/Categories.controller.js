@@ -1,18 +1,20 @@
-const CategoriesModel = require("../models/Categories.model");
+const CategorySchema = require("./Categories.model");
 
 async function CreateCategory(req, res) {
 
     try {
         console.log(req.body);
 
-        const { CategoryName, CategoryImage, Stock } = req.body;
+        const { categoryName, categoryImage, description, isActive, icon } = req.body;
 
 
-        const Save = await CategoriesModel.create({
+        const Save = await CategorySchema.create({
 
-            CategoryName,
-            CategoryImage,
-            Stock
+            categoryName,
+            categoryImage,
+            description,
+            isActive,
+            icon
         });
 
         return res.json({
@@ -20,7 +22,7 @@ async function CreateCategory(req, res) {
             data: Save
         })
 
-        
+
 
 
 
@@ -36,7 +38,7 @@ async function FetchCategory(req, res) {
 
     try {
 
-        const get = await CategoriesModel.find();
+        const get = await CategorySchema.find();
 
         return res.json({
             message: "Categories Fetched",
@@ -57,7 +59,7 @@ async function FetchCategory(req, res) {
 
 async function UpdateCategory(req, res) {
 
-    const Update = await CategoriesModel.findByIdAndUpdate(
+    const Update = await CategorySchema.findByIdAndUpdate(
         req.params.id,
         req.body,
         { new: true }
@@ -70,7 +72,7 @@ async function UpdateCategory(req, res) {
 
 async function DeleteCategory(req, res) {
 
-    const Delete = await CategoriesModel.findByIdAndDelete(req.params.id)
+    const Delete = await CategorySchema.findByIdAndDelete(req.params.id)
 
     res.json({
         message: "Deleted Successfully!"

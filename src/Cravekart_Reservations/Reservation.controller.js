@@ -1,13 +1,13 @@
-const ReservationModel = require("../models/Reservation.model");
+const ReservationSchema = require("./Reservation.model");
 
 const AddReservation = async (req, res) => {
 
     console.log(req.body);
     try {
-        const { ReservationName, Date, Time, Guest } = req.body
+        const { reservationName, date, time, guest } = req.body
 
-        const save = await ReservationModel.create({
-            ReservationName, Date, Time, Guest
+        const save = await ReservationSchema.create({
+            reservationName, date, time, guest
         })
 
         return res.json({
@@ -26,7 +26,7 @@ const AddReservation = async (req, res) => {
 const GetReservation = async (req, res) => {
 
     try {
-        const get = await ReservationModel.find();
+        const get = await ReservationSchema.find();
 
         return res.json({
             message: " Reservation Fetched Successfully! ",
@@ -42,7 +42,7 @@ const GetReservation = async (req, res) => {
 
 const UpdateReservation = async (req, res) => {
 
-    await ReservationModel.findByIdAndUpdate(
+    await ReservationSchema.findByIdAndUpdate(
         req.params.id,
         req.body,
         { new: true }
@@ -57,7 +57,7 @@ const UpdateReservation = async (req, res) => {
 
 const DeleteReservation = async (req, res) => {
 
-    await ReservationModel.findByIdAndDelete(req.params.id)
+    await ReservationSchema.findByIdAndDelete(req.params.id)
 
     res.json({
         message: "Deleted Successfully!"

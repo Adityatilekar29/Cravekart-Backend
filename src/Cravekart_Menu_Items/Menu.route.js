@@ -1,6 +1,6 @@
 const express = require("express")
-const { FoodPost, FoodGet } = require("../controllers/Food.controller")
-const FoodController = require("../controllers/Food.controller")
+const { FoodPost, FoodGet } = require("./Menu.controller")
+const FoodController = require("./Menu.controller")
 const router = express.Router()
 
 router.post("/add/food", FoodController.FoodPost)

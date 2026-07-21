@@ -1,19 +1,19 @@
-const FoodModel = require("../Models/Food.model")
+const FoodModel = require("./Menu.model")
 
 const FoodPost = async (req, res) => {
     try {
         console.log(req.body);
 
-        const { FoodName, Price, Category, Stock, Image, Description, Rating } = req.body;
+        const { foodName, price, category, stock, image, description, rating } = req.body;
 
         const save = await FoodModel.create({
-            FoodName,
-            Price,
-            Category,
-            Stock,
-            Rating,
-            Description,
-            Image
+            foodName,
+            price,
+            category,
+            stock,
+            rating,
+            description,
+            image
         });
 
         return res.status(201).json({
@@ -22,7 +22,7 @@ const FoodPost = async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error);   
+        console.log(error);
 
         return res.status(500).json({
             message: error.message
