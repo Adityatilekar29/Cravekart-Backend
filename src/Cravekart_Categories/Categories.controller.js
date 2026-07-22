@@ -1,88 +1,25 @@
-const CategorySchema = require("./Categories.model");
+// const CategoryModel = require("./")
 
-async function CreateCategory(req, res) {
-
-    try {
-        console.log(req.body);
-
-        const { categoryName, categoryImage, stock, description, isActive, icon } = req.body;
-
-        const Save = await CategorySchema.create({
-
-            categoryName,
-            categoryImage,
-            description,
-            isActive,
-            icon,
-            stock
-        });
-
-        return res.json({
-            message: " Category Added Successfully! ",
-            data: Save
-        })
-
-
-
-
-
-    } catch (error) {
-
-        return res.status(500).json({
-            message: error.message
-        });
-    }
+const index = (req, res) => {
+    return res.json('i am index function')
 }
-
-async function FetchCategory(req, res) {
-
-    try {
-
-        const get = await CategorySchema.find();
-
-        return res.json({
-            message: "Categories Fetched",
-            data: get
-        })
-
-    } catch (error) {
-        console.log(error);
-
-        return res.status(500).json({
-            message: error.message
-        });
-
-    }
-
+const store = (req, res) => {
+    return res.json('i am store function')
 }
-
-
-async function UpdateCategory(req, res) {
-
-    const Update = await CategorySchema.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-    );
-
-    res.json({
-        message: "Updated Successfully!"
-    })
+const show = (req, res) => {
+    return res.json('i am show function')
 }
-
-async function DeleteCategory(req, res) {
-
-    const Delete = await CategorySchema.findByIdAndDelete(req.params.id)
-
-    res.json({
-        message: "Deleted Successfully!"
-    })
-
+const updated = (req, res) => {
+    return res.json('i am update function')
+}
+const deleted = (req, res) => {
+    return res.json('i am delete function')
 }
 
 module.exports = {
-    CreateCategory,
-    FetchCategory,
-    UpdateCategory,
-    DeleteCategory
+    index,
+    store,
+    show,
+    updated,
+    deleted
 }

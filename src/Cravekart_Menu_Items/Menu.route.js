@@ -1,11 +1,13 @@
-const express = require("express")
-const { FoodPost, FoodGet } = require("./Menu.controller")
-const FoodController = require("./Menu.controller")
-const router = express.Router()
+const express = require("express");
+const MenuController = require("./Menu.controller")
 
-router.post("/add/food", FoodController.FoodPost)
-router.get("/food", FoodController.FoodGet);
-router.put("/food/:id", FoodController.FoodUpdate)
-router.delete("/food/:id", FoodController.FoodDelete)
+const router = express.Router();
 
-module.exports = router 
+router.get("/menu/index", MenuController.index)
+router.post("/menu/store", MenuController.store)
+router.get("/menu/show/:id", MenuController.show)
+router.put("/menu/update", MenuController.updated)
+router.delete("/menu/delete/:id", MenuController.deleted)
+
+
+module.exports = router

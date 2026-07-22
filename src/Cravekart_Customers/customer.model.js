@@ -73,7 +73,7 @@ const CustomerSchema = new mongoose.Schema({
         default: 0
     },
     preferences: {
-        type: json,
+        type: String,
         required: true
     }
 

@@ -1,4 +1,3 @@
-const { json } = require("express");
 const mongoose = require("mongoose");
 
 const OrderItemSchema = new mongoose.Schema({
@@ -33,7 +32,7 @@ const OrderItemSchema = new mongoose.Schema({
         type: String
     },
     addons_applied: {
-        type: json
+        type: String
     },
 
 }, {

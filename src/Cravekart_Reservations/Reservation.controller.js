@@ -1,75 +1,29 @@
-const ReservationSchema = require("./Reservation.model");
+const ReservationModel = require("./Reservation.model");
 
-const AddReservation = async (req, res) => {
-
-    console.log(req.body);
-    try {
-        const { reservationName, date, time, guest } = req.body
-
-        const save = await ReservationSchema.create({
-            reservationName, date, time, guest
-        })
-
-        return res.json({
-            message: " Reservation Added Successfully! ",
-            data: save
-        })
-
-
-
-    } catch (error) {
-        console.log(error);
-    }
+const index = (req, res) => {
+    return res.json('i am index function')
 }
 
-
-const GetReservation = async (req, res) => {
-
-    try {
-        const get = await ReservationSchema.find();
-
-        return res.json({
-            message: " Reservation Fetched Successfully! ",
-            data: get
-        })
-    } catch (error) {
-        console.log(error);
-
-    }
-
+const store = (req, res) => {
+    return res.json('i am store function')
 }
 
-
-const UpdateReservation = async (req, res) => {
-
-    await ReservationSchema.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-    );
-
-    res.json({
-        message: "Updated Successfully!"
-    })
-
+const show = (req, res) => {
+    return res.json('i am show function')
 }
 
-
-const DeleteReservation = async (req, res) => {
-
-    await ReservationSchema.findByIdAndDelete(req.params.id)
-
-    res.json({
-        message: "Deleted Successfully!"
-    })
-
+const updated = (req, res) => {
+    return res.json('i am update function')
 }
 
+const deleted = (req, res) => {
+    return res.json('i am delete function')
+}
 
 module.exports = {
-    AddReservation,
-    GetReservation,
-    UpdateReservation,
-    DeleteReservation
+    index,
+    store,
+    show,
+    updated,
+    deleted
 }
-

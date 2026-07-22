@@ -43,7 +43,8 @@ const AdminSchema = new mongoose.Schema({
     },
 
     two_factor_enabled: {
-        type: true
+        type: Boolean,
+        default: true
     }
 },
     {
