@@ -5,21 +5,130 @@ const index = (req, res) => {
 }
 
 const store = (req, res) => {
-    return res.json('i am store function')
+
+    try {
+
+        const {
+            customer_id,
+            item_id,
+            order_id,
+            rating,
+            food_rating,
+            delivery_rating,
+            title,
+            review_text,
+            images,
+            is_verified,
+            is_approved,
+            helpful_count,
+        } = req.body
+
+        return res.json({
+            message: "Data Created successfully!",
+            Data: {
+                customer_id,
+                item_id,
+                order_id,
+                rating,
+                food_rating,
+                delivery_rating,
+                title,
+                review_text,
+                images,
+                is_verified,
+                is_approved,
+                helpful_count,
+            }
+        })
+
+    } catch (error) {
+        console.log(error);
+
+        return res.json({
+            message: "Internal Server Error!"
+        })
+    }
 }
 
 const show = (req, res) => {
-    return res.json('i am show function')
+    try {
+        const { id } = req.params;
+
+        return res.json({
+            message: "Reqest Accepted Successfully!",
+            id
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.json({
+            message: "Internal Server Error!!"
+        })
+
+    }
 }
 
 const updated = (req, res) => {
-    return res.json('i am update function')
+    try {
+
+        const {
+            customer_id,
+            item_id,
+            order_id,
+            rating,
+            food_rating,
+            delivery_rating,
+            title,
+            review_text,
+            images,
+            is_verified,
+            is_approved,
+            helpful_count,
+        } = req.body
+
+        return res.json({
+            message: "Data Updated successfully!",
+            Data: {
+                customer_id,
+                item_id,
+                order_id,
+                rating,
+                food_rating,
+                delivery_rating,
+                title,
+                review_text,
+                images,
+                is_verified,
+                is_approved,
+                helpful_count,
+            }
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.json({
+            message: "Internal Server Error!!"
+        })
+    }
 }
 
 const deleted = (req, res) => {
-    return res.json('i am delete function')
-}
+    try {
+        const { id } = req.params;
 
+        return res.json({
+            message: "Reqest Deleted Successfully!",
+            id
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.json({
+            message: "Internal Server Error!!"
+        })
+
+    }
+}
 module.exports = {
     index,
     store,

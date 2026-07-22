@@ -71,10 +71,6 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         default: 30
     },
-    estimated_delivery_time: {
-        type: Number,
-        default: 30
-    },
     actual_delivery_time: {
         type: Number,
         default: 0
@@ -99,7 +95,7 @@ const OrderSchema = new mongoose.Schema({
         type: String
     },
 
-    loyalty_points_used: {
+    loyalty_points_used: {  
         type: Number,
         default: 0
     }

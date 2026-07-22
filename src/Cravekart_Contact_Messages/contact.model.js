@@ -4,7 +4,7 @@ const ContactSchema = new mongoose.Schema({
 
     customer_id: {
         type: String,
-        required: true
+        // required: true
     },
 
     full_name: {

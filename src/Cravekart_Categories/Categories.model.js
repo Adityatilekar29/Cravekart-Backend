@@ -2,26 +2,16 @@ const mongoose = require("mongoose");
 
 const CategorySchema = new mongoose.Schema({
 
-    categoryName: {
+    name: {
         type: String,
         required: true
     },
 
-    categoryImage: {
+    image_url: {
         type: String,
-    },
-    stock: {
-        type: String,
-        enum: ["Available", "Out Of Stock"],
-        default: "Available"
     },
     description: {
         type: String,
-    },
-
-    isActive: {
-        type: String,
-        default: true
     },
 
     icon: {

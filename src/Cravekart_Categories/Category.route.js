@@ -6,7 +6,7 @@ router.get("/category/index", CategoryController.index)
 router.post("/category/store", CategoryController.store)
 router.get("/category/show/:id", CategoryController.show)
 router.put("/category/update", CategoryController.updated)
-router.delete("/category/delete", CategoryController.deleted)
+router.delete("/category/delete/:id", CategoryController.deleted)
 
 
 module.exports = router 
