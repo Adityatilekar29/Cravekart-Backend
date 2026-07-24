@@ -1,10 +1,11 @@
 const AdminModel = require("./admin.model")
 
-const index = (req, res) => {
+const index = async (req, res) => {
 
-    return res.json('I am index function')
+    const list = await AdminModel.find()
+    return res.json(list)
 }
-const store = (req, res) => {
+const store = async (req, res) => {
 
     try {
         console.log(req.body);
@@ -20,6 +21,25 @@ const store = (req, res) => {
             two_factor_enabled
         } = req.body;
 
+
+        const save = await AdminModel.create({
+            username,
+            email,
+            password_hash,
+            full_name,
+            role,
+            profile_image,
+            last_login,
+            is_active,
+            two_factor_enabled
+        });
+
+        if (!save) {
+            return res.json({
+                message: "Something Went Wrong!"
+            })
+        }
+
         return res.json({
             message: "Data Create Successfully!",
             data: {
@@ -34,6 +54,7 @@ const store = (req, res) => {
                 two_factor_enabled
             }
         });
+
     } catch (error) {
         console.log(error);
         return res.json({
@@ -42,14 +63,16 @@ const store = (req, res) => {
 
     }
 }
-const show = (req, res) => {
+const show = async (req, res) => {
 
     try {
         const { id } = req.params;
 
+        const data = await AdminModel.findById(id)
+
         return res.json({
             message: "Reqest Accepted Successfully!",
-            id
+            data
         })
 
     } catch (error) {
@@ -100,15 +123,17 @@ const updated = (req, res) => {
     }
 
 }
-const deleted = (req, res) => {
+const deleted = async (req, res) => {
 
     try {
 
         const { id } = req.params;
 
+        const data = await AdminModel.deleteOne({ _id: id })
+
         return res.json({
             message: "Data Deleted Successfully!",
-            id
+            data
         })
 
     } catch (error) {

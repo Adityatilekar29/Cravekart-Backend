@@ -43,7 +43,7 @@ const ContactSchema = new mongoose.Schema({
     priority: {
         type: String,
         enum: ['low', 'medium', 'high', 'urgent'],
-        default: 'new'
+        default: 'low'
     }
 }, {
     timestamps: true

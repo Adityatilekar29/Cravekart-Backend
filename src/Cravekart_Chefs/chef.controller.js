@@ -1,10 +1,13 @@
 const ChefModel = require("./chef.model");
 
-const index = (req, res) => {
-    return res.json('i am index function')
+const index = async (req, res) => {
+
+    const list = await ChefModel.find()
+
+    return res.json(list)
 }
 
-const store = (req, res) => {
+const store = async (req, res) => {
 
     try {
 
@@ -22,6 +25,28 @@ const store = (req, res) => {
             rating,
             total_orders_prepared
         } = req.body
+
+
+        const save = ChefModel.create({
+            first_name,
+            last_name,
+            email,
+            phone,
+            specialty,
+            profile_image,
+            bio,
+            experience_years,
+            is_active,
+            shift_timing,
+            rating,
+            total_orders_prepared
+        })
+
+        if (!save) {
+            return res.json({
+                message: "something went wrong!"
+            })
+        }
 
         return res.json({
             message: "Data Created successfully!",
@@ -50,13 +75,15 @@ const store = (req, res) => {
     }
 }
 
-const show = (req, res) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = ChefModel.findById(id)
+
         return res.json({
             message: "Reqest Accepted Successfully!",
-            id
+            data
         })
 
     } catch (error) {
@@ -116,9 +143,11 @@ const deleted = (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = ChefModel.deleteOne({ _id: id })
+
         return res.json({
             message: "Reqest Deleted Successfully!",
-            id
+            data
         })
 
     } catch (error) {

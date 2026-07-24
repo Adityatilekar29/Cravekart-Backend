@@ -74,7 +74,7 @@ const CustomerSchema = new mongoose.Schema({
     },
     preferences: {
         type: String,
-        required: true
+        // required: true
     }
 
 },

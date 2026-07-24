@@ -19,6 +19,7 @@ const OrderSchema = new mongoose.Schema({
     },
     order_date: {
         type: Date,
+        default: Date.now
     },
 
     status: {
@@ -95,7 +96,7 @@ const OrderSchema = new mongoose.Schema({
         type: String
     },
 
-    loyalty_points_used: {  
+    loyalty_points_used: {
         type: Number,
         default: 0
     }

@@ -1,11 +1,14 @@
 const OrderModel = require("./order.model");
 
-const index = (req, res) => {
-    return res.json('i am index function')
+const index = async (req, res) => {
+
+    const list = await OrderModel.find()
+
+    return res.json(list)
 }
 
 
-const store = (req, res) => {
+const store = async (req, res) => {
 
     try {
 
@@ -34,6 +37,38 @@ const store = (req, res) => {
             coupon_code,
             loyalty_points_used
         } = req.body
+
+        const save = await OrderModel.create({
+            customer_id,
+            order_number,
+            order_type,
+            order_date,
+            status,
+            total_amount,
+            subtotal,
+            tax_amount,
+            discount_amount,
+            delivery_fee,
+            packaging_fee,
+            payment_method,
+            payment_status,
+            transaction_id,
+            delivery_address,
+            delivery_instructions,
+            estimated_delivery_time,
+            actual_delivery_time,
+            assigned_chef_id,
+            assigned_delivery_partner,
+            special_instructions,
+            coupon_code,
+            loyalty_points_used
+        })
+
+        if (!save) {
+            return res.json({
+                message: "sometthing went wrong!"
+            })
+        }
 
         return res.json({
             message: "Data Created successfully!",
@@ -73,13 +108,15 @@ const store = (req, res) => {
     }
 }
 
-const show = (req, res) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = await OrderModel.findById(id)
+
         return res.json({
             message: "Reqest Accepted Successfully!",
-            id
+            data
         })
 
     } catch (error) {
@@ -157,13 +194,15 @@ const updated = (req, res) => {
     }
 }
 
-const deleted = (req, res) => {
+const deleted = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = await OrderModel.deleteOne({ _id: id })
+
         return res.json({
             message: "Reqest Deleted Successfully!",
-            id
+            data
         })
 
     } catch (error) {

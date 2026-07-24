@@ -1,10 +1,11 @@
 const ReservationModel = require("./Reservation.model");
 
-const index = (req, res) => {
-    return res.json('i am index function')
+const index = async (req, res) => {
+    const list = await ReservationModel.find()
+    return res.json(list)
 }
 
-const store = (req, res) => {
+const store = async (req, res) => {
 
     try {
 
@@ -24,6 +25,30 @@ const store = (req, res) => {
             contact_phone,
             is_recurring,
         } = req.body
+
+
+        const save = await ReservationModel.create({
+            customer_id,
+            reservationName,
+            date,
+            guest,
+            reservation_date,
+            reservation_time,
+            end_time,
+            number_of_guests,
+            table_number,
+            section,
+            special_requests,
+            status,
+            contact_phone,
+            is_recurring,
+        })
+
+        if (!save) {
+            return res.json({
+                message: "sometthing went wrong!"
+            })
+        }
 
         return res.json({
             message: "Data Created successfully!",
@@ -54,13 +79,13 @@ const store = (req, res) => {
     }
 }
 
-const show = (req, res) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params;
-
+        const data = await ReservationModel.findById(id)
         return res.json({
             message: "Reqest Accepted Successfully!",
-            id
+            data
         })
 
     } catch (error) {
@@ -120,13 +145,13 @@ const updated = (req, res) => {
     }
 }
 
-const deleted = (req, res) => {
+const deleted = async (req, res) => {
     try {
         const { id } = req.params;
-
+        const data = await ReservationModel.findById({ _id: id })
         return res.json({
             message: "Reqest Deleted Successfully!",
-            id
+            data
         })
 
     } catch (error) {

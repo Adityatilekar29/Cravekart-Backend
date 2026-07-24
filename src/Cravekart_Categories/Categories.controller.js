@@ -1,8 +1,10 @@
-// const CategoryModel = require("./")
+const CategoryModel = require("./Categories.model")
 
-const index = (req, res) => {
+const index = async (req, res) => {
 
-    return res.json('i am Index function')
+    const list = await CategoryModel.find()
+
+    return res.json(list)
 }
 const store = (req, res) => {
 
@@ -12,7 +14,6 @@ const store = (req, res) => {
             name,
             image_url,
             description,
-            isActive,
             icon,
             slug,
             parent_id,
@@ -22,13 +23,32 @@ const store = (req, res) => {
 
         } = req.body
 
+
+        const save = CategoryModel.create({
+            name,
+            image_url,
+            description,
+            icon,
+            slug,
+            parent_id,
+            is_featured,
+            is_active,
+            sort_order
+        })
+
+        if (!save) {
+            return res.json({
+                message: "Something Went Wrong!"
+            })
+        }
+
+
         return res.json({
             message: "Data Created successfully!",
             Data: {
                 name,
                 image_url,
                 description,
-                isActive,
                 icon,
                 slug,
                 parent_id,
@@ -37,6 +57,8 @@ const store = (req, res) => {
                 sort_order
             }
         })
+
+
 
     } catch (error) {
         console.log(error);
@@ -47,13 +69,15 @@ const store = (req, res) => {
 
     }
 }
-const show = (req, res) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const list = await CategoryModel.findById(id)
+
         return res.json({
             message: "Reqest Accepted Successfully!",
-            id
+            list
         })
 
     } catch (error) {
@@ -106,13 +130,15 @@ const updated = (req, res) => {
 
     }
 }
-const deleted = (req, res) => {
+const deleted = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = await CategoryModel.deleteOne({ _id: id })
+
         return res.json({
             message: "Reqest Deleted Successfully!",
-            id
+            data
         })
 
     } catch (error) {

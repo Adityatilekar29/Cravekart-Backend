@@ -1,10 +1,16 @@
 const ReviewsModel = require("./reviews.model");
 
-const index = (req, res) => {
-    return res.json('i am index function')
+const index = async (req, res) => {
+    try {
+        const list = await ReviewsModel.find();
+        return res.json(list)
+    } catch (error) {
+        console.log(error);
+        return res.json(error);
+    }
 }
-
-const store = (req, res) => {
+    
+const store = async (req, res) => {
 
     try {
 
@@ -22,6 +28,26 @@ const store = (req, res) => {
             is_approved,
             helpful_count,
         } = req.body
+
+        const save = await ReviewsModel.create({
+            customer_id,
+            item_id,
+            order_id,
+            rating,
+            food_rating,
+            delivery_rating,
+            title,
+            review_text,
+            images,
+            is_verified,
+            is_approved,
+            helpful_count,
+        });
+        if (!save) {
+            return res.json({
+                message: "Something went wrong!"
+            })
+        }
 
         return res.json({
             message: "Data Created successfully!",
@@ -50,14 +76,14 @@ const store = (req, res) => {
     }
 }
 
-const show = (req, res) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params;
-
+        const data = await ReviewsModel.findById(id);
         return res.json({
             message: "Reqest Accepted Successfully!",
-            id
-        })
+            data
+        });
 
     } catch (error) {
         console.log(error);
@@ -112,14 +138,14 @@ const updated = (req, res) => {
     }
 }
 
-const deleted = (req, res) => {
+const deleted = async (req, res) => {
     try {
         const { id } = req.params;
-
+        const data = await ReviewsModel.deleteOne({ _id: id });
         return res.json({
-            message: "Reqest Deleted Successfully!",
-            id
-        })
+            message: "Reqest Accepted Successfully!",
+            data
+        });
 
     } catch (error) {
         console.log(error);

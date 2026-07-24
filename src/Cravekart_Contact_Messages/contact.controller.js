@@ -1,10 +1,13 @@
 const ConatctModel = require("./contact.model");
 
-const index = (req, res) => {
-    return res.json('i am index function')
+const index = async (req, res) => {
+
+    const list = await ConatctModel.find();
+
+    return res.json(list)
 }
 
-const store = (req, res) => {
+const store = async (req, res) => {
 
     try {
 
@@ -20,6 +23,27 @@ const store = (req, res) => {
             assigned_to,
             priority,
         } = req.body
+
+
+        const save = await ConatctModel.create({
+            customer_id,
+            full_name,
+            email,
+            phone,
+            subject,
+            category,
+            message_text,
+            status,
+            assigned_to,
+            priority,
+        })
+
+        if (!save) {
+            return res.json({
+                message: "something went wrong!"
+            })
+        }
+
 
         return res.json({
             message: "Data Created successfully!",
@@ -46,13 +70,15 @@ const store = (req, res) => {
     }
 }
 
-const show = (req, res) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = await ConatctModel.findById(id)
+
         return res.json({
             message: "Reqest Accepted Successfully!",
-            id
+            data
         })
 
     } catch (error) {
@@ -104,13 +130,15 @@ const updated = (req, res) => {
     }
 }
 
-const deleted = (req, res) => {
+const deleted = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const list = await ConatctModel.deleteOne({ _id: id })
+
         return res.json({
             message: "Reqest Deleted Successfully!",
-            id
+            list
         })
 
     } catch (error) {

@@ -1,10 +1,13 @@
 const CustomerModel = require("./customer.model");
 
-const index = (req, res) => {
-    return res.json('i am index function')
+const index = async (req, res) => {
+
+    const list = CustomerModel.find()
+
+    return res.json(list)
 }
 
-const store = (req, res) => {
+const store = async (req, res) => {
 
     try {
 
@@ -25,6 +28,31 @@ const store = (req, res) => {
             is_verified,
             is_active
         } = req.body
+
+
+        const save = await CustomerModel.create({
+            email,
+            password_hash,
+            first_name,
+            last_name,
+            phone,
+            address_line1,
+            address_line2,
+            city,
+            state,
+            postal_code,
+            country,
+            latitude,
+            longitude,
+            is_verified,
+            is_active
+        })
+
+        if (!save) {
+            return res.json({
+                message: "something went wrong!"
+            })
+        }
 
         return res.json({
             message: "Data Created successfully!",
@@ -56,13 +84,15 @@ const store = (req, res) => {
     }
 }
 
-const show = (req, res) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = CustomerModel.findById(id)
+
         return res.json({
             message: "Reqest Accepted Successfully!",
-            id
+            data
         })
 
     } catch (error) {
@@ -124,13 +154,15 @@ const updated = (req, res) => {
     }
 }
 
-const deleted = (req, res) => {
+const deleted = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = CustomerModel.deleteOne({ _id: id })
+
         return res.json({
             message: "Reqest Deleted Successfully!",
-            id
+            data
         })
 
     } catch (error) {

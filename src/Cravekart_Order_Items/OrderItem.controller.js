@@ -1,10 +1,13 @@
 const OrderItemModel = require("./OrderItem.model");
 
-const index = (req, res) => {
-    return res.json('i am index function')
+const index = async (req, res) => {
+
+    const list = await OrderItemModel.find();
+
+    return res.json(list)
 }
 
-const store = (req, res) => {
+const store = async (req, res) => {
 
     try {
 
@@ -19,6 +22,24 @@ const store = (req, res) => {
             special_instructions,
             addons_applied,
         } = req.body
+
+        const save = await OrderItemModel.create({
+            Order_id,
+            item_id,
+            variant_id,
+            quantity,
+            unit_price,
+            variant_price,
+            subtotal,
+            special_instructions,
+            addons_applied,
+        })
+
+        if (!save) {
+            return res.json({
+                message: "sometthing went wrong!"
+            })
+        }
 
         return res.json({
             message: "Data Created successfully!",
@@ -44,13 +65,15 @@ const store = (req, res) => {
     }
 }
 
-const show = (req, res) => {
+const show = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = await OrderItemModel.findById(id)
+
         return res.json({
             message: "Reqest Accepted Successfully!",
-            id
+            data
         })
 
     } catch (error) {
@@ -100,13 +123,15 @@ const updated = (req, res) => {
     }
 }
 
-const deleted = (req, res) => {
+const deleted = async (req, res) => {
     try {
         const { id } = req.params;
 
+        const data = await OrderItemModel.deleteOne({ _id: id })
+
         return res.json({
             message: "Reqest Deleted Successfully!",
-            id
+            data
         })
 
     } catch (error) {
